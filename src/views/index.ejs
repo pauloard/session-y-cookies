@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<%- include("partials/head") %>
+<header><a href="/thanks">thanks</a></header>
+  <body style="background-color:<%= color? color:"transparent"%>">
+    <% if(locals.errors && errors){ %>
+      <ul>
+        <% for( let i = 0; i < errors.length; i++ ) { %>
+          <li><%= errors[i].msg  %></li>
+        <% } %>
+      </ul>
+    <% } %> 
+
+    <% if (session.user && user) { %>
+      <p>Hola, <%= user.name %>, elegiste el color: <%= user.colors %>, tu email es:
+        <%= user.email %>  y tu edad es: <%= user.age %> años.</p>
+    <% } %>
+    <form action="/send" method="POST">
+      <h4>Ingrese su nombre</h4><input type="text" name="name" id="name" placeholder="Ingresa aqui tu nombre" display="none">
+      <h4>Ingrese un color</h4>
+      <select name="colors" id="colors">
+        <option value="">- Selecciona un color -</option>
+        <option value="green">Verde</option>
+        <option value="gray">Gris</option>
+        <option value="blue">Azul</option>
+        <option value="red">Rojo</option>
+        <option value="yellow">Amarillo</option>
+      </select>
+      <p>Recordar color <input type="checkbox" name="remember" id="remember"></p>
+      <h4>Ingrese su email</h4><input type="text" name="email" id="email">
+      <h4>Ingrese su edad</h4><input type="number" name="age" id="age">
+      <button type="submit" id="accept">Enviar</button>
+    </form>
+    <form action="/remove" method="post"><button type="submit">Remover Color</button></form>
+  </body>
+
+</html>
